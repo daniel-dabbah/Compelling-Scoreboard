@@ -10,10 +10,6 @@ st.set_page_config(
     initial_sidebar_state="collapsed"
 )
 
-# Force cache refresh - add version number
-APP_VERSION = "2.1"
-st.markdown(f'<!-- App Version {APP_VERSION} -->', unsafe_allow_html=True)
-
 # Custom CSS for better styling with RTL support, pleasant colors, and background
 st.markdown("""
 <style>
@@ -138,7 +134,20 @@ st.markdown("""
         margin-bottom: 1.5rem;
     }
     
+    .input-container {
+        background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+        padding: 2rem;
+        border-radius: 18px;
+        margin: 1.8rem 0;
+        border: 2px solid #e2e8f0;
+        box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+    }
+    
     .stSlider > div > div {
+        direction: ltr;
+    }
+    
+    .stNumberInput > div > div {
         direction: ltr;
     }
     
@@ -174,19 +183,6 @@ ADDITIONAL_QUESTIONS = [
     "עד כמה אני מרגיש שאני עוזר לאחרים מהכיתה"
 ]
 
-def get_user_id():
-    """Get user ID based on name input"""
-    if 'user_id' not in st.session_state:
-        st.session_state.user_id = None
-    return st.session_state.user_id
-
-def set_user_id(name):
-    """Set user ID based on name"""
-    # Create a simple ID from the name
-    user_id = name.strip().replace(" ", "_").lower()
-    st.session_state.user_id = user_id
-    return user_id
-
 def get_feedback_message(score):
     """Generate short feedback based on the total score"""
     if score >= 90:
@@ -198,84 +194,52 @@ def get_feedback_message(score):
     else:
         return "עבודה טובה, בוא נשפר עוד קצת!"
 
-def get_improvement_message(current_score, previous_score=None):
-    """Generate short improvement feedback message"""
-    if previous_score is None:
-        return "כל הכבוד על ההערכה הראשונה!"
-    
-    improvement = current_score - previous_score
-    
-    if improvement > 0:
-        return f"כל הכבוד! שיפרת ב-{improvement:.1f} נקודות!"
-    elif improvement == 0:
-        return "נשארת על אותו ציון!"
-    else:
-        return "לא נורא, נשתפר!"
+def load_manual_scores():
+    """Load manually entered scores from session state"""
+    if 'manual_scores' not in st.session_state:
+        st.session_state.manual_scores = {}
+    return st.session_state.manual_scores
 
-def load_user_data():
-    """Load all users data from session state"""
-    if 'all_users_data' not in st.session_state:
-        st.session_state.all_users_data = {}
-    return st.session_state.all_users_data
+def save_manual_scores(scores):
+    """Save manually entered scores to session state"""
+    st.session_state.manual_scores = scores
 
-def save_assessment_result(user_id, score, responses):
-    """Save assessment result for the current user"""
-    all_data = load_user_data()
-    
-    if user_id not in all_data:
-        all_data[user_id] = {'assessments': []}
-    
-    assessment = {
-        'date': datetime.now().isoformat(),
-        'score': score,
-        'responses': responses,
-        'assessment_number': len(all_data[user_id]['assessments']) + 1
-    }
-    
-    all_data[user_id]['assessments'].append(assessment)
-    st.session_state.all_users_data = all_data
-
-def get_user_history(user_id):
-    """Get assessment history for current user"""
-    all_data = load_user_data()
-    if user_id and user_id in all_data:
-        return all_data[user_id]['assessments']
-    return []
-
-def create_simple_progress_chart(history):
+def create_simple_progress_chart(scores_dict):
     """Create a simple progress chart using Streamlit's built-in chart"""
-    if not history:
+    if not scores_dict:
         return None
     
-    # Prepare data for chart
-    chart_data = []
-    for assessment in history:
-        chart_data.append({
-            'הערכה': f"הערכה {assessment['assessment_number']}",
-            'ציון': assessment['score']
-        })
+    # Filter out empty scores and sort by assessment number
+    valid_scores = {k: v for k, v in scores_dict.items() if v is not None and v != ""}
+    if not valid_scores:
+        return None
     
-    return chart_data
+    # Sort by assessment number
+    sorted_items = sorted(valid_scores.items(), key=lambda x: int(x[0]))
+    
+    return {f"הערכה {num}": score for num, score in sorted_items}
 
-def display_statistics(history):
-    """Display progress statistics in Hebrew"""
-    if not history:
-        return
+def display_statistics_from_manual(scores_dict):
+    """Display progress statistics from manually entered scores"""
+    valid_scores = [score for score in scores_dict.values() if score is not None and score != ""]
     
-    scores = [assessment['score'] for assessment in history]
+    if not valid_scores:
+        st.info("הזן ציונים כדי לראות סטטיסטיקות")
+        return
     
     col1, col2, col3 = st.columns(3)
     
     with col1:
+        current_score = valid_scores[-1] if valid_scores else 0
         st.markdown("""
         <div class="progress-stats">
-            <h3 style="color: #2D3748; margin: 0;">הציון שלי עכשיו</h3>
+            <h3 style="color: #2D3748; margin: 0;">הציון האחרון שלי</h3>
             <h2 style="color: #4299e1; margin: 5px 0;">{}/100</h2>
         </div>
-        """.format(scores[-1]), unsafe_allow_html=True)
+        """.format(current_score), unsafe_allow_html=True)
     
     with col2:
-        best_score = max(scores)
+        best_score = max(valid_scores) if valid_scores else 0
         st.markdown("""
         <div class="progress-stats">
             <h3 style="color: #2D3748; margin: 0;">הציון הכי טוב שלי</h3>
@@ -284,10 +248,10 @@ def display_statistics(history):
         """.format(best_score), unsafe_allow_html=True)
     
     with col3:
-        total_assessments = len(history)
+        total_assessments = len(valid_scores)
         st.markdown("""
         <div class="progress-stats">
-            <h3 style="color: #2D3748; margin: 0;">כמה הערכות עשיתי</h3>
+            <h3 style="color: #2D3748; margin: 0;">כמה הערכות הזנתי</h3>
             <h2 style="color: #9f7aea; margin: 5px 0;">{}</h2>
         </div>
         """.format(total_assessments), unsafe_allow_html=True)
@@ -295,33 +259,6 @@ def display_statistics(history):
 def main():
     # Header
     st.markdown('<h1 class="main-header">הערכה פנימית - לוח תוצאות</h1>', unsafe_allow_html=True)
-    
-    # Get user ID
-    user_id = get_user_id()
-    
-    # If no user ID, show login screen
-    if not user_id:
-        st.markdown("<div style='text-align: center; margin: 3rem 0;'>", unsafe_allow_html=True)
-        st.markdown("### היכנס עם השם שלך")
-        st.markdown("כתוב את השם שלך כדי להתחיל או לחזור להערכות שלך")
-        
-        name = st.text_input("השם שלי:", placeholder="כתוב את השם המלא שלך")
-        
-        if st.button("להיכנס", type="primary", disabled=not name.strip()):
-            if name.strip():
-                set_user_id(name.strip())
-                st.rerun()
-        
-        st.markdown("</div>", unsafe_allow_html=True)
-        return
-    
-    # Show current user
-    st.markdown(f"<div style='text-align: center; color: #666; margin-bottom: 1rem;'>שלום {user_id.replace('_', ' ').title()}!</div>", unsafe_allow_html=True)
-    
-    # Add logout button in sidebar or corner
-    if st.button("להחליף משתמש", key="logout"):
-        st.session_state.user_id = None
-        st.rerun()
     
     # Initialize session state
     if 'current_responses' not in st.session_state:
@@ -390,28 +327,12 @@ def main():
             responses = st.session_state.current_responses
             total_score = round((sum(responses.values()) / ((len(SUBJECTS) + len(ADDITIONAL_QUESTIONS)) * 10)) * 100, 1)
             
-            # Get previous score for comparison
-            history = get_user_history(user_id)
-            previous_score = history[-1]['score'] if history else None
-            
-            # Save results automatically
-            save_assessment_result(user_id, total_score, responses)
-            
             # Display score
             st.markdown(f"""
             <div class="score-display">
                 הציון הכללי שלי: {total_score}/100
             </div>
             """, unsafe_allow_html=True)
-            
-            # Display improvement feedback
-            improvement_msg = get_improvement_message(total_score, previous_score)
-            if improvement_msg:
-                st.markdown(f"""
-                <div class="improvement-box">
-                    <p style="font-size: 1.1rem; margin: 0; text-align: center; color: #2D3748; font-weight: 500;">{improvement_msg}</p>
-                </div>
-                """, unsafe_allow_html=True)
             
             # Display general feedback
             feedback = get_feedback_message(total_score)
@@ -429,47 +350,86 @@ def main():
                 st.rerun()
     
     with tab2:
-        # Progress tracking
-        history = get_user_history(user_id)
+        st.markdown("<h3 style='text-align: center;'>הזן את הציונים שלך</h3>", unsafe_allow_html=True)
+        st.markdown("<p style='text-align: center; color: #666; margin-bottom: 2rem;'>הזן ציונים מ-0 עד 100 עבור כל הערכה. הציונים יישמרו אוטומטית.</p>", unsafe_allow_html=True)
         
-        if not history:
-            st.info("עוד לא עשית הערכות. תעשה הערכה ראשונה ואז תוכל לראות איך אתה מתקדם!")
-        else:
+        # Load existing scores
+        manual_scores = load_manual_scores()
+        
+        # Create input fields for 20 assessments
+        st.markdown('<div class="input-container">', unsafe_allow_html=True)
+        
+        # Create 4 columns with 5 assessments each
+        cols = st.columns(4)
+        
+        updated_scores = {}
+        
+        for i in range(20):
+            assessment_num = i + 1
+            col_idx = i // 5  # Which column (0-3)
+            
+            with cols[col_idx]:
+                current_value = manual_scores.get(str(assessment_num), None)
+                if current_value == "":
+                    current_value = None
+                    
+                score = st.number_input(
+                    f"הערכה {assessment_num}",
+                    min_value=0,
+                    max_value=100,
+                    value=current_value,
+                    step=1,
+                    key=f"manual_score_{assessment_num}",
+                    help=f"ציון עבור הערכה מספר {assessment_num}"
+                )
+                
+                updated_scores[str(assessment_num)] = score
+        
+        st.markdown('</div>', unsafe_allow_html=True)
+        
+        # Save scores automatically when they change
+        save_manual_scores(updated_scores)
+        
+        # Clear all scores button
+        col1, col2 = st.columns([1, 1])
+        with col1:
+            if st.button("לנקות את כל הציונים", type="secondary"):
+                st.session_state.manual_scores = {}
+                st.rerun()
+        
+        # Display statistics and charts
+        valid_scores_dict = {k: v for k, v in updated_scores.items() if v is not None and v != ""}
+        
+        if valid_scores_dict:
+            st.markdown("---")
             st.markdown("<h3 style='text-align: center;'>איך אני מתקדם</h3>", unsafe_allow_html=True)
             
             # Statistics
-            display_statistics(history)
+            display_statistics_from_manual(updated_scores)
             
-            # Simple progress chart using Streamlit's built-in chart
-            chart_data = create_simple_progress_chart(history)
+            # Progress chart
+            chart_data = create_simple_progress_chart(updated_scores)
             if chart_data:
                 st.markdown('<div class="chart-container">', unsafe_allow_html=True)
                 st.markdown('<div class="chart-title">הגרף של ההתקדמות שלי</div>', unsafe_allow_html=True)
                 
-                # Create a simple line chart
-                scores = [assessment['score'] for assessment in history]
-                assessment_numbers = [assessment['assessment_number'] for assessment in history]
-                
                 # Display as line chart
-                chart_dict = {f"הערכה {num}": score for num, score in zip(assessment_numbers, scores)}
-                st.line_chart(chart_dict, height=400)
+                st.line_chart(chart_data, height=400)
                 st.markdown('</div>', unsafe_allow_html=True)
             
-            # Recent assessments table
-            st.markdown("### כל ההערכות שעשיתי")
-            recent_data = []
-            for assessment in reversed(history):  # Most recent first
-                date_obj = datetime.fromisoformat(assessment['date'])
-                recent_data.append({
-                    'הערכה מספר': assessment['assessment_number'],
-                    'תאריך': date_obj.strftime('%d/%m/%Y'),
-                    'שעה': date_obj.strftime('%H:%M'),
-                    'הציון שקיבלתי': f"{assessment['score']}/100"
+            # Recent scores table
+            st.markdown("### הציונים שהזנתי")
+            table_data = []
+            for num, score in sorted(valid_scores_dict.items(), key=lambda x: int(x[0])):
+                table_data.append({
+                    'הערכה מספר': int(num),
+                    'ציון': f"{score}/100"
                 })
             
-            if recent_data:
-                # Convert to a format suitable for st.dataframe
-                st.dataframe(recent_data, use_container_width=True)
+            if table_data:
+                st.dataframe(table_data, use_container_width=True, hide_index=True)
+        else:
+            st.info("הזן ציונים כדי לראות את הגרף והסטטיסטיקות!")
 
 if __name__ == "__main__":
     main()
