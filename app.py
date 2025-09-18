@@ -390,6 +390,13 @@ def main():
         # Save scores automatically when they change
         save_manual_scores(updated_scores)
         
+        # Clear all scores button
+        col1, col2 = st.columns([1, 1])
+        with col1:
+            if st.button("לנקות את כל הציונים", type="secondary"):
+                st.session_state.manual_scores = {}
+                st.rerun()
+        
         # Display statistics and charts
         valid_scores_dict = {k: v for k, v in updated_scores.items() if v is not None and v != ""}
         
@@ -406,8 +413,8 @@ def main():
                 st.markdown('<div class="chart-container">', unsafe_allow_html=True)
                 st.markdown('<div class="chart-title">הגרף של ההתקדמות שלי</div>', unsafe_allow_html=True)
                 
-                # Display as line chart with y-axis range 50-100
-                st.line_chart(chart_data, height=400, y_min=50, y_max=100)
+                # Display as line chart
+                st.line_chart(chart_data, height=400)
                 st.markdown('</div>', unsafe_allow_html=True)
             
             # Recent scores table
