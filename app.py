@@ -390,13 +390,6 @@ def main():
         # Save scores automatically when they change
         save_manual_scores(updated_scores)
         
-        # Clear all scores button
-        col1, col2 = st.columns([1, 1])
-        with col1:
-            if st.button("לנקות את כל הציונים", type="secondary"):
-                st.session_state.manual_scores = {}
-                st.rerun()
-        
         # Display statistics and charts
         valid_scores_dict = {k: v for k, v in updated_scores.items() if v is not None and v != ""}
         
