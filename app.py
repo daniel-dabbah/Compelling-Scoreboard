@@ -343,17 +343,11 @@ def main():
                 </div>
                 """, unsafe_allow_html=True)
             
-            # Buttons for actions
-            col1, col2 = st.columns(2)
-            with col1:
-                if st.button("לעבור לגרף ההתקדמות", type="secondary", use_container_width=True):
-                    st.switch_page("main")  # This will switch to the progress tab
-                    
-            with col2:
-                if st.button("לעשות הערכה חדשה", type="primary", use_container_width=True):
-                    st.session_state.current_responses = {}
-                    st.session_state.show_results = False
-                    st.rerun()
+            # Button to take new assessment
+            if st.button("לעשות הערכה חדשה", type="primary", use_container_width=True):
+                st.session_state.current_responses = {}
+                st.session_state.show_results = False
+                st.rerun()
     
     with tab2:
         st.markdown("<h3 style='text-align: center;'>הזן את הציונים שלך</h3>", unsafe_allow_html=True)
