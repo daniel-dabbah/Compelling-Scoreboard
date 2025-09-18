@@ -134,20 +134,16 @@ st.markdown("""
         margin-bottom: 1.5rem;
     }
     
-    .input-container {
+    .assessment-input-container {
         background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
-        padding: 2rem;
-        border-radius: 18px;
-        margin: 1.8rem 0;
-        border: 2px solid #e2e8f0;
-        box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+        padding: 1.5rem;
+        border-radius: 15px;
+        margin: 1rem 0;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        border: 1px solid #e2e8f0;
     }
     
     .stSlider > div > div {
-        direction: ltr;
-    }
-    
-    .stNumberInput > div > div {
         direction: ltr;
     }
     
@@ -194,67 +190,66 @@ def get_feedback_message(score):
     else:
         return "עבודה טובה, בוא נשפר עוד קצת!"
 
-def load_manual_scores():
-    """Load manually entered scores from session state"""
-    if 'manual_scores' not in st.session_state:
-        st.session_state.manual_scores = {}
-    return st.session_state.manual_scores
+def load_manual_assessments():
+    """Load manually entered assessments from session state"""
+    if 'manual_assessments' not in st.session_state:
+        st.session_state.manual_assessments = {}
+    return st.session_state.manual_assessments
 
-def save_manual_scores(scores):
-    """Save manually entered scores to session state"""
-    st.session_state.manual_scores = scores
+def save_manual_assessments(assessments):
+    """Save manually entered assessments to session state"""
+    st.session_state.manual_assessments = assessments
 
-def create_simple_progress_chart(scores_dict):
+def create_simple_progress_chart(assessments):
     """Create a simple progress chart using Streamlit's built-in chart"""
-    if not scores_dict:
+    if not assessments:
         return None
     
-    # Filter out empty scores and sort by assessment number
-    valid_scores = {k: v for k, v in scores_dict.items() if v is not None and v != ""}
-    if not valid_scores:
+    # Filter out empty assessments and sort by assessment number
+    valid_assessments = [(num, score) for num, score in assessments.items() if score is not None and score > 0]
+    valid_assessments.sort(key=lambda x: x[0])
+    
+    if not valid_assessments:
         return None
     
-    # Sort by assessment number
-    sorted_items = sorted(valid_scores.items(), key=lambda x: int(x[0]))
-    
-    return {f"הערכה {num}": score for num, score in sorted_items}
+    return valid_assessments
 
-def display_statistics_from_manual(scores_dict):
-    """Display progress statistics from manually entered scores"""
-    valid_scores = [score for score in scores_dict.values() if score is not None and score != ""]
+def display_statistics(assessments):
+    """Display progress statistics in Hebrew"""
+    # Filter valid assessments
+    valid_scores = [score for score in assessments.values() if score is not None and score > 0]
     
     if not valid_scores:
-        st.info("הזן ציונים כדי לראות סטטיסטיקות")
         return
     
     col1, col2, col3 = st.columns(3)
     
     with col1:
-        current_score = valid_scores[-1] if valid_scores else 0
-        st.markdown("""
+        latest_score = valid_scores[-1]
+        st.markdown(f"""
         <div class="progress-stats">
             <h3 style="color: #2D3748; margin: 0;">הציון האחרון שלי</h3>
-            <h2 style="color: #4299e1; margin: 5px 0;">{}/100</h2>
+            <h2 style="color: #4299e1; margin: 5px 0;">{latest_score}/100</h2>
         </div>
-        """.format(current_score), unsafe_allow_html=True)
+        """, unsafe_allow_html=True)
     
     with col2:
-        best_score = max(valid_scores) if valid_scores else 0
-        st.markdown("""
+        best_score = max(valid_scores)
+        st.markdown(f"""
         <div class="progress-stats">
             <h3 style="color: #2D3748; margin: 0;">הציון הכי טוב שלי</h3>
-            <h2 style="color: #68d391; margin: 5px 0;">{}/100</h2>
+            <h2 style="color: #68d391; margin: 5px 0;">{best_score}/100</h2>
         </div>
-        """.format(best_score), unsafe_allow_html=True)
+        """, unsafe_allow_html=True)
     
     with col3:
-        total_assessments = len(valid_scores)
-        st.markdown("""
+        average_score = round(sum(valid_scores) / len(valid_scores), 1)
+        st.markdown(f"""
         <div class="progress-stats">
-            <h3 style="color: #2D3748; margin: 0;">כמה הערכות הזנתי</h3>
-            <h2 style="color: #9f7aea; margin: 5px 0;">{}</h2>
+            <h3 style="color: #2D3748; margin: 0;">הממוצע שלי</h3>
+            <h2 style="color: #9f7aea; margin: 5px 0;">{average_score}/100</h2>
         </div>
-        """.format(total_assessments), unsafe_allow_html=True)
+        """, unsafe_allow_html=True)
 
 def main():
     # Header
@@ -350,86 +345,68 @@ def main():
                 st.rerun()
     
     with tab2:
-        st.markdown("<h3 style='text-align: center;'>הזן את הציונים שלך</h3>", unsafe_allow_html=True)
-        st.markdown("<p style='text-align: center; color: #666; margin-bottom: 2rem;'>הזן ציונים מ-0 עד 100 עבור כל הערכה. הציונים יישמרו אוטומטית.</p>", unsafe_allow_html=True)
+        st.markdown("<h3 style='text-align: center;'>הזן את הציונים שלך כדי לראות התקדמות</h3>", unsafe_allow_html=True)
+        st.markdown("<p style='text-align: center; color: #666; margin-bottom: 2rem;'>הזן ציונים מ-0 עד 100 עבור עד 20 הערכות</p>", unsafe_allow_html=True)
         
-        # Load existing scores
-        manual_scores = load_manual_scores()
+        # Load existing manual assessments
+        manual_assessments = load_manual_assessments()
         
-        # Create input fields for 20 assessments
-        st.markdown('<div class="input-container">', unsafe_allow_html=True)
-        
-        # Create 4 columns with 5 assessments each
-        cols = st.columns(4)
-        
-        updated_scores = {}
-        
-        for i in range(20):
-            assessment_num = i + 1
-            col_idx = i // 5  # Which column (0-3)
+        # Create input fields for up to 20 assessments
+        with st.form("manual_assessments_form"):
+            st.markdown("### הזן את הציונים שלך:")
             
-            with cols[col_idx]:
-                current_value = manual_scores.get(str(assessment_num), None)
-                if current_value == "":
-                    current_value = None
-                    
-                score = st.number_input(
-                    f"הערכה {assessment_num}",
-                    min_value=0,
-                    max_value=100,
-                    value=current_value,
-                    step=1,
-                    key=f"manual_score_{assessment_num}",
-                    help=f"ציון עבור הערכה מספר {assessment_num}"
-                )
-                
-                updated_scores[str(assessment_num)] = score
-        
-        st.markdown('</div>', unsafe_allow_html=True)
-        
-        # Save scores automatically when they change
-        save_manual_scores(updated_scores)
-        
-        # Clear all scores button
-        col1, col2 = st.columns([1, 1])
-        with col1:
-            if st.button("לנקות את כל הציונים", type="secondary"):
-                st.session_state.manual_scores = {}
+            new_assessments = {}
+            
+            # Create columns for better layout
+            cols = st.columns(4)
+            for i in range(1, 21):
+                col_index = (i - 1) % 4
+                with cols[col_index]:
+                    current_value = manual_assessments.get(i, 0)
+                    score = st.number_input(
+                        f"הערכה {i}:",
+                        min_value=0,
+                        max_value=100,
+                        value=current_value,
+                        key=f"assessment_{i}",
+                        step=1
+                    )
+                    new_assessments[i] = score if score > 0 else None
+            
+            # Save button
+            if st.form_submit_button("לשמור ולהראות גרף", type="primary", use_container_width=True):
+                save_manual_assessments(new_assessments)
                 st.rerun()
         
-        # Display statistics and charts
-        valid_scores_dict = {k: v for k, v in updated_scores.items() if v is not None and v != ""}
+        # Show progress if there are valid assessments
+        valid_assessments = {k: v for k, v in manual_assessments.items() if v is not None and v > 0}
         
-        if valid_scores_dict:
+        if valid_assessments:
             st.markdown("---")
-            st.markdown("<h3 style='text-align: center;'>איך אני מתקדם</h3>", unsafe_allow_html=True)
+            st.markdown("<h3 style='text-align: center;'>ההתקדמות שלי</h3>", unsafe_allow_html=True)
             
             # Statistics
-            display_statistics_from_manual(updated_scores)
+            display_statistics(manual_assessments)
             
             # Progress chart
-            chart_data = create_simple_progress_chart(updated_scores)
+            chart_data = create_simple_progress_chart(manual_assessments)
             if chart_data:
                 st.markdown('<div class="chart-container">', unsafe_allow_html=True)
                 st.markdown('<div class="chart-title">הגרף של ההתקדמות שלי</div>', unsafe_allow_html=True)
                 
+                # Create chart data for Streamlit
+                chart_dict = {}
+                for assessment_num, score in chart_data:
+                    chart_dict[f"הערכה {assessment_num}"] = score
+                
                 # Display as line chart
-                st.line_chart(chart_data, height=400)
+                st.line_chart(chart_dict, height=400)
                 st.markdown('</div>', unsafe_allow_html=True)
             
-            # Recent scores table
-            st.markdown("### הציונים שהזנתי")
-            table_data = []
-            for num, score in sorted(valid_scores_dict.items(), key=lambda x: int(x[0])):
-                table_data.append({
-                    'הערכה מספר': int(num),
-                    'ציון': f"{score}/100"
-                })
-            
-            if table_data:
-                st.dataframe(table_data, use_container_width=True, hide_index=True)
+
+        
         else:
-            st.info("הזן ציונים כדי לראות את הגרף והסטטיסטיקות!")
+            st.info("הזן לפחות ציון אחד כדי לראות את הגרף שלך!")
 
 if __name__ == "__main__":
     main()
