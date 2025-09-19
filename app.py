@@ -369,22 +369,43 @@ def main():
                 </div>
                 """, unsafe_allow_html=True)
             
-            # Add improvement steps using regular markdown
-            st.markdown('<div class="improvement-box">', unsafe_allow_html=True)
-            st.markdown("### צעדים לשיפור:")
-            st.write("עבור כל אחד מהתחומים, ניתן להתמקד בו בזמן הקרוב ולשפר")
-            
-            st.markdown("#### איך ניתן לשפר מקצועות?")
-            st.write("• להבין איזה נושאים צריך להשלים/ לחזור עליהם")
-            st.write("• לקבוע פרטני עם המורה")
-            st.write("• ללמוד באמצעות AI")
-            
-            st.write("**מצאו מה עובד בשבילכם!**")
-            st.write("**קבעו מטרות והשתמשו בהן לקביעת יעדים יומיים ושבועיים בכל אחד מהתחומים**")
-            
-            st.write("**לא לשכוח לשמר את המקצועות, ולהחזיר אנרגיה!**")
-            st.markdown("**<div style='text-align: center'>סומך עליכם!</div>**", unsafe_allow_html=True)
-            st.markdown('</div>', unsafe_allow_html=True)
+            # Add improvement steps with proper RTL direction
+            st.markdown("""
+            <div class="improvement-box" style="direction: rtl; text-align: right;">
+                <div style="text-align: center; margin-bottom: 1.5rem;">
+                    <strong style="font-size: 1.3rem; color: #2D3748;">צעדים לשיפור:</strong>
+                </div>
+                
+                <p style="color: #2D3748; margin-bottom: 1.5rem; line-height: 1.6;">
+                    עבור כל אחד מהתחומים, ניתן להתמקד בו בזמן הקרוב ולשפר
+                </p>
+                
+                <div style="margin-bottom: 1.5rem;">
+                    <strong style="color: #2D3748; font-size: 1.1rem;">איך ניתן לשפר מקצועות?</strong>
+                    <div style="margin-top: 0.5rem;">
+                        <p style="color: #2D3748; margin: 0.3rem 0;">• להבין איזה נושאים צריך להשלים/ לחזור עליהם</p>
+                        <p style="color: #2D3748; margin: 0.3rem 0;">• לקבוע פרטני עם המורה</p>
+                        <p style="color: #2D3748; margin: 0.3rem 0;">• ללמוד באמצעות AI</p>
+                    </div>
+                </div>
+                
+                <p style="color: #2D3748; margin: 0.8rem 0; font-weight: bold;">
+                    מצאו מה עובד בשבילכם!
+                </p>
+                
+                <p style="color: #2D3748; margin: 0.8rem 0; font-weight: bold; line-height: 1.6;">
+                    קבעו מטרות והשתמשו בהן לקביעת יעדים יומיים ושבועיים בכל אחד מהתחומים
+                </p>
+                
+                <p style="color: #2D3748; margin: 0.8rem 0; font-weight: bold;">
+                    לא לשכוח לשמר את המקצועות, ולהחזיר אנרגיה!
+                </p>
+                
+                <div style="text-align: center; margin-top: 1.5rem;">
+                    <strong style="color: #2D3748; font-size: 1.2rem;">סומך עליכם!</strong>
+                </div>
+            </div>
+            """, unsafe_allow_html=True)
             
             # Buttons - New assessment and Go to progress
             col1, col2 = st.columns(2)
