@@ -157,15 +157,15 @@ st.markdown("""
     .guidance-section {
         margin: 2rem 0;
         padding: 1.5rem;
-        background: linear-gradient(135deg, #faf5ff 0%, #ede9fe 100%);
+        background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
         border-radius: 15px;
-        border-right: 4px solid #9f7aea;
+        border-right: 4px solid #4ade80;
     }
     
     .guidance-title {
         font-size: 1.4rem;
         font-weight: 600;
-        color: #553c9a;
+        color: #166534;
         margin-bottom: 1rem;
     }
     
@@ -181,15 +181,15 @@ st.markdown("""
     }
     
     .reminder-box {
-        background: linear-gradient(135deg, #fef5e7 0%, #fdeaa8 100%);
+        background: linear-gradient(135deg, #fce7f3 0%, #fbcfe8 100%);
         padding: 1.8rem;
         border-radius: 15px;
         margin: 2rem 0;
-        border: 2px solid #f39c12;
+        border: 2px solid #ec4899;
         text-align: center;
         direction: rtl;
         font-size: 1.2rem;
-        color: #7c3a00;
+        color: #831843;
         font-weight: 500;
     }
     
@@ -197,10 +197,10 @@ st.markdown("""
         text-align: center;
         margin-top: 3rem;
         padding: 1.5rem;
-        background: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 100%);
+        background: linear-gradient(135deg, #f3e8ff 0%, #e9d5ff 100%);
         border-radius: 15px;
         font-size: 1.3rem;
-        color: #075985;
+        color: #6b21a8;
         font-weight: 600;
     }
     
@@ -551,8 +551,8 @@ def main():
         
         # Section 2: Areas to maintain
         st.markdown("""
-        <div class="guidance-section">
-            <div class="guidance-title">✨ בתחומים שבהם תרצו לשמר את הציון:</div>
+        <div class="guidance-section" style="background: linear-gradient(135deg, #ede9fe 0%, #ddd6fe 100%); border-right-color: #a78bfa;">
+            <div class="guidance-title" style="color: #5b21b6;">✨ בתחומים שבהם תרצו לשמר את הציון:</div>
             <ul class="guidance-list">
                 <li>קבעו חזרות קבועות על החומר</li>
             </ul>
@@ -568,9 +568,9 @@ def main():
         
         # Action steps
         st.markdown("""
-        <div class="guidance-section" style="background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%); border-right-color: #f59e0b;">
-            <div class="guidance-title" style="color: #92400e;">📋 לאחר שזיהיתם מה צריך לעשות:</div>
-            <p style="font-size: 1.2rem; margin-right: 1.5rem; color: #451a03; font-weight: 500;">
+        <div class="guidance-section" style="background: linear-gradient(135deg, #fef3c7 0%, #fed7aa 100%); border-right-color: #fb923c;">
+            <div class="guidance-title" style="color: #9a3412;">📋 לאחר שזיהיתם מה צריך לעשות:</div>
+            <p style="font-size: 1.2rem; margin-right: 1.5rem; color: #7c2d12; font-weight: 500;">
                 קבעו יעדים יומיים ושבועיים
             </p>
         </div>
