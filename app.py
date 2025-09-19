@@ -306,71 +306,39 @@ def display_statistics_from_manual(scores_dict):
 
 def display_goal_progress_tab():
     """Display the goal progress strategies tab"""
-    st.markdown("<h3 style='text-align: center; color: #2D3748; margin-bottom: 2rem;'>איך ניתן להתקדם למטרה?</h3>", unsafe_allow_html=True)
+    st.markdown("<h3 style='text-align: center; color: #2D3748; margin-bottom: 2rem;'>איך ניתן להתקדם אל המטרה?</h3>", unsafe_allow_html=True)
     
-    # Goal setting section
+    # Improvement strategies section
     st.markdown("""
     <div class="goal-card">
-        <h4 style="color: #2D3748; margin-bottom: 1rem;">🎯 הגדרת מטרות חכמות</h4>
-        <p style="margin: 0.5rem 0;"><strong>ספציפית:</strong> הגדר מטרה ברורה ומדויקת (למשל: "לקבל 85 במתמטיקה")</p>
-        <p style="margin: 0.5rem 0;"><strong>מדידה:</strong> קבע איך תמדוד הצלחה (ציונים, הבנת חומר)</p>
-        <p style="margin: 0.5rem 0;"><strong>ריאלית:</strong> וודא שהמטרה אפשרית עבורך</p>
-        <p style="margin: 0.5rem 0;"><strong>זמן:</strong> קבע מועד יעד ברור</p>
+        <h4 style="color: #2D3748; margin-bottom: 1rem;">📈 בתחומים שבהם תרצו לשפר את הציון:</h4>
+        <p style="margin: 0.5rem 0;">• אתרו את הנושאים שיש צורך להשלים או לחזור עליהם, וצרו רשימה מסודרת.</p>
+        <p style="margin: 0.5rem 0;">• קבעו פגישה פרטנית עם המורה.</p>
+        <p style="margin: 0.5rem 0;">• היעזרו ב-AI לתרגול וחיזוק.</p>
     </div>
     """, unsafe_allow_html=True)
     
-    # Learning strategies
+    # Maintaining scores section
     st.markdown("""
     <div class="strategy-card">
-        <h4 style="color: #2D3748; margin-bottom: 1rem;">📚 אסטרטגיות לימוד יעילות</h4>
-        <p style="margin: 0.5rem 0;"><strong>חזרה מרווחת:</strong> חזור על החומר במרווחים קבועים</p>
-        <p style="margin: 0.5rem 0;"><strong>למידה אקטיבית:</strong> הסבר את החומר לעצמך או לאחרים</p>
-        <p style="margin: 0.5rem 0;"><strong>תרגול מבחנים:</strong> פתור מבחנים ותרגילים קודמים</p>
-        <p style="margin: 0.5rem 0;"><strong>פילוח החומר:</strong> חלק חומר גדול לחלקים קטנים</p>
+        <h4 style="color: #2D3748; margin-bottom: 1rem;">📚 בתחומים שבהם תרצו לשמר את הציון:</h4>
+        <p style="margin: 0.5rem 0;">• קבעו חזרות קבועות על החומר.</p>
     </div>
     """, unsafe_allow_html=True)
     
-    # Time management
+    # Rest and energy section
     st.markdown("""
     <div class="tip-card">
-        <h4 style="color: #2D3748; margin-bottom: 1rem;">⏰ ניהול זמן חכם</h4>
-        <p style="margin: 0.5rem 0;"><strong>תכנון שבועי:</strong> הכן תוכנית לימודים לכל שבוע</p>
-        <p style="margin: 0.5rem 0;"><strong>טכניקת הפומודורו:</strong> למד 25 דקות, הפסקה 5 דקות</p>
-        <p style="margin: 0.5rem 0;"><strong>סדרי עדיפויות:</strong> התמקד במקצועות הכי חשובים</p>
-        <p style="margin: 0.5rem 0;"><strong>הכנה מוקדמת:</strong> התחל להכין למבחנים מראש</p>
+        <h4 style="color: #2D3748; margin-bottom: 1rem;">⚡ זכרו גם לנוח ולעשות דברים שמחזירים לכם אנרגיה!</h4>
     </div>
     """, unsafe_allow_html=True)
     
-    # Motivation and wellbeing
+    # Goals and planning section
     st.markdown("""
-    <div class="strategy-card">
-        <h4 style="color: #2D3748; margin-bottom: 1rem;">💪 שמירה על מוטיבציה ורווחה</h4>
-        <p style="margin: 0.5rem 0;"><strong>חגוג הישגים קטנים:</strong> הכר בהצלחות שלך, גם הקטנות</p>
-        <p style="margin: 0.5rem 0;"><strong>פעילות גופנית:</strong> שמור על אורח חיים בריא</p>
-        <p style="margin: 0.5rem 0;"><strong>שינה טובה:</strong> דאג לשעות שינה מספיקות</p>
-        <p style="margin: 0.5rem 0;"><strong>תמיכה חברתית:</strong> למד עם חברים או קבל עזרה</p>
-    </div>
-    """, unsafe_allow_html=True)
-    
-    # Specific subject tips
-    st.markdown("""
-    <div class="tip-card">
-        <h4 style="color: #2D3748; margin-bottom: 1rem;">📖 טיפים לפי מקצועות</h4>
-        <p style="margin: 0.5rem 0;"><strong>מתמטיקה:</strong> תרגל הרבה, הבן את העקרונות לא רק את הנוסחאות</p>
-        <p style="margin: 0.5rem 0;"><strong>שפות:</strong> קרא בקול רם, השתמש באפליקציות לחזרה על מילים</p>
-        <p style="margin: 0.5rem 0;"><strong>מדעים:</strong> הכן תרשימים וסיכומים ויזואליים</p>
-        <p style="margin: 0.5rem 0;"><strong>היסטוריה:</strong> צור קו זמן ותקשר אירועים</p>
-    </div>
-    """, unsafe_allow_html=True)
-    
-    # Resources and tools
-    st.markdown("""
-    <div class="goal-card">
-        <h4 style="color: #2D3748; margin-bottom: 1rem;">🛠️ כלים ומשאבים מועילים</h4>
-        <p style="margin: 0.5rem 0;"><strong>אפליקציות:</strong> השתמש באפליקציות למעקב אחר הרגלי לימוד</p>
-        <p style="margin: 0.5rem 0;"><strong>יומן לימודים:</strong> רשום מה למדת ואיך הרגשת</p>
-        <p style="margin: 0.5rem 0;"><strong>קבוצות לימוד:</strong> הצטרף לקבוצות במקצועות קשים</p>
-        <p style="margin: 0.5rem 0;"><strong>מורים פרטיים:</strong> קבל עזרה נוספת במקצועות שצריך</p>
+    <div class="improvement-box">
+        <h4 style="color: #2D3748; margin-bottom: 1rem;">🎯 תכנון ויעדים</h4>
+        <p style="margin: 0.5rem 0;">לאחר שזיהיתם מה צריך לעשות – קבעו יעדים יומיים ושבועיים.</p>
+        <p style="margin: 1rem 0; font-weight: bold; font-size: 1.1rem;">סומך עליכם! דניאל</p>
     </div>
     """, unsafe_allow_html=True)
 
@@ -408,7 +376,7 @@ def main():
             st.session_state.active_tab = 1
     
     with col3:
-        if st.button("איך ניתן להתקדם למטרה?", 
+        if st.button("איך ניתן להתקדם אל המטרה?", 
                     type="primary" if st.session_state.active_tab == 2 else "secondary",
                     use_container_width=True,
                     key="tab_goal_progress"):
