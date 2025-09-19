@@ -439,21 +439,8 @@ def main():
                 st.markdown('<div class="chart-container">', unsafe_allow_html=True)
                 st.markdown('<div class="chart-title">הגרף של ההתקדמות שלי</div>', unsafe_allow_html=True)
                 
-                # Create chart data with target line
-                import pandas as pd
-                
-                # Convert to DataFrame for better control
-                chart_df = pd.DataFrame(list(chart_data.items()), columns=['הערכה', 'ציון'])
-                
-                # Add target line (100) for all assessments
-                target_data = {assessment: 100 for assessment in chart_data.keys()}
-                chart_df['יעד (100)'] = [target_data[assessment] for assessment in chart_df['הערכה']]
-                
-                # Set the DataFrame index to assessment names
-                chart_df = chart_df.set_index('הערכה')
-                
-                # Display as line chart with custom y-axis range
-                st.line_chart(chart_df, height=400, y_min=0, y_max=100)
+                # Display as line chart
+                st.line_chart(chart_data, height=400)
                 st.markdown('</div>', unsafe_allow_html=True)
             
             # Statistics - SECOND
