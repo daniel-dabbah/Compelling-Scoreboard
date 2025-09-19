@@ -343,11 +343,22 @@ def main():
                 </div>
                 """, unsafe_allow_html=True)
             
-            # Button to take new assessment
-            if st.button("לעשות הערכה חדשה", type="primary", use_container_width=True):
-                st.session_state.current_responses = {}
-                st.session_state.show_results = False
-                st.rerun()
+            # Buttons - New assessment and Go to progress
+            col1, col2 = st.columns(2)
+            
+            with col1:
+                if st.button("לעשות הערכה חדשה", type="primary", use_container_width=True):
+                    st.session_state.current_responses = {}
+                    st.session_state.show_results = False
+                    st.rerun()
+            
+            with col2:
+                if st.button("לעבור לדף ההתקדמות", type="secondary", use_container_width=True):
+                    st.session_state.current_responses = {}
+                    st.session_state.show_results = False
+                    # Switch to progress tab by setting a flag
+                    st.session_state.switch_to_progress = True
+                    st.rerun()
     
     with tab2:
         st.markdown("<h3 style='text-align: center;'>הזן את הציונים שלך</h3>", unsafe_allow_html=True)
@@ -390,13 +401,6 @@ def main():
         # Save scores automatically when they change
         save_manual_scores(updated_scores)
         
-        # Clear all scores button
-        col1, col2 = st.columns([1, 1])
-        with col1:
-            if st.button("לנקות את כל הציונים", type="secondary"):
-                st.session_state.manual_scores = {}
-                st.rerun()
-        
         # Display statistics and charts
         valid_scores_dict = {k: v for k, v in updated_scores.items() if v is not None and v != ""}
         
@@ -404,10 +408,7 @@ def main():
             st.markdown("---")
             st.markdown("<h3 style='text-align: center;'>איך אני מתקדם</h3>", unsafe_allow_html=True)
             
-            # Statistics
-            display_statistics_from_manual(updated_scores)
-            
-            # Progress chart
+            # Progress chart - FIRST
             chart_data = create_simple_progress_chart(updated_scores)
             if chart_data:
                 st.markdown('<div class="chart-container">', unsafe_allow_html=True)
@@ -416,6 +417,9 @@ def main():
                 # Display as line chart
                 st.line_chart(chart_data, height=400)
                 st.markdown('</div>', unsafe_allow_html=True)
+            
+            # Statistics - SECOND
+            display_statistics_from_manual(updated_scores)
             
             # Recent scores table
             st.markdown("### הציונים שהזנתי")
