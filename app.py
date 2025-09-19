@@ -143,91 +143,6 @@ st.markdown("""
         box-shadow: 0 6px 20px rgba(0,0,0,0.1);
     }
     
-    .progress-guide-container {
-        background: linear-gradient(135deg, #fff5f5 0%, #fed7d7 100%);
-        padding: 2.5rem;
-        border-radius: 20px;
-        margin: 2rem 0;
-        border: 3px solid #fc8181;
-        box-shadow: 0 8px 25px rgba(252, 129, 129, 0.2);
-        direction: rtl;
-        text-align: right;
-    }
-    
-    .progress-guide-header {
-        font-size: 2rem;
-        font-weight: 700;
-        color: #2D3748;
-        text-align: center;
-        margin-bottom: 2rem;
-        background: linear-gradient(135deg, #e53e3e 0%, #c53030 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-    }
-    
-    .guide-section {
-        background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
-        padding: 2rem;
-        border-radius: 15px;
-        margin: 1.5rem 0;
-        border-right: 5px solid #4299e1;
-        box-shadow: 0 6px 15px rgba(66, 153, 225, 0.1);
-    }
-    
-    .guide-section h3 {
-        color: #2D3748;
-        font-weight: 600;
-        font-size: 1.4rem;
-        margin-bottom: 1rem;
-    }
-    
-    .guide-list {
-        list-style: none;
-        padding-right: 1.5rem;
-        margin: 0;
-    }
-    
-    .guide-list li {
-        color: #4A5568;
-        font-size: 1.1rem;
-        line-height: 1.8;
-        margin-bottom: 0.8rem;
-        position: relative;
-        padding-right: 2rem;
-    }
-    
-    .guide-list li:before {
-        content: "•";
-        color: #4299e1;
-        font-weight: bold;
-        position: absolute;
-        right: 0;
-        font-size: 1.2rem;
-    }
-    
-    .motivational-message {
-        background: linear-gradient(135deg, #f0fff4 0%, #c6f6d5 100%);
-        padding: 2rem;
-        border-radius: 15px;
-        margin: 2rem 0;
-        border: 2px solid #68d391;
-        box-shadow: 0 6px 20px rgba(104, 211, 145, 0.15);
-        text-align: center;
-    }
-    
-    .signature {
-        background: linear-gradient(135deg, #e6fffa 0%, #b2f5ea 100%);
-        padding: 1.5rem;
-        border-radius: 12px;
-        margin-top: 1.5rem;
-        border: 2px solid #4fd1c7;
-        text-align: center;
-        font-weight: 500;
-        color: #2D3748;
-        font-size: 1.1rem;
-    }
-    
     .stSlider > div > div {
         direction: ltr;
     }
@@ -341,45 +256,6 @@ def display_statistics_from_manual(scores_dict):
         </div>
         """.format(total_assessments), unsafe_allow_html=True)
 
-def display_progress_guide():
-    """Display the progress guide content"""
-    st.markdown("""
-    <div class="progress-guide-container">
-        <h2 class="progress-guide-header">איך ניתן להתקדם אל המטרה</h2>
-        
-        <div class="guide-section">
-            <h3>בתחומים שבהם תרצו לשפר את הציון:</h3>
-            <ul class="guide-list">
-                <li>אתרו את הנושאים שיש צורך להשלים או לחזור עליהם, וצרו רשימה מסודרת.</li>
-                <li>קבעו פגישה פרטנית עם המורה.</li>
-                <li>היעזרו ב-AI לתרגול וחיזוק.</li>
-            </ul>
-        </div>
-        
-        <div class="guide-section">
-            <h3>בתחומים שבהם תרצו לשמר את הציון:</h3>
-            <ul class="guide-list">
-                <li>קבעו חזרות קבועות על החומר.</li>
-            </ul>
-        </div>
-        
-        <div class="motivational-message">
-            <p style="font-size: 1.3rem; font-weight: 500; color: #2D3748; margin-bottom: 1.5rem;">
-                זכרו גם לנוח ולעשות דברים שמחזירים לכם אנרגיה!
-            </p>
-            
-            <p style="font-size: 1.2rem; font-weight: 500; color: #4A5568; margin-bottom: 0;">
-                לאחר שזיהיתם מה צריך לעשות – קבעו יעדים יומיים ושבועיים.
-            </p>
-        </div>
-        
-        <div class="signature">
-            סומך עליכם!<br/>
-            דניאל
-        </div>
-    </div>
-    """, unsafe_allow_html=True)
-
 def main():
     # Header
     st.markdown('<h1 class="main-header">הערכה פנימית - לוח תוצאות</h1>', unsafe_allow_html=True)
@@ -387,10 +263,10 @@ def main():
     # Initialize session state
     if 'current_responses' not in st.session_state:
         st.session_state.current_responses = {}
-    if 'show_results' not in st.session_state:
+    if 'show_results' not in st.st.session_state:
         st.session_state.show_results = False
     if 'active_tab' not in st.session_state:
-        st.session_state.active_tab = 0  # 0 for first tab, 1 for second tab, 2 for third tab
+        st.session_state.active_tab = 0  # 0 for first tab, 1 for second, 2 for third
     
     # Check if we need to switch to progress tab
     if st.session_state.get('switch_to_progress', False):
@@ -402,25 +278,26 @@ def main():
     
     # Create tab selection buttons
     col1, col2, col3 = st.columns(3)
+    
     with col1:
-        if st.button("הערכה חדשה", 
+        if st.button(tab_names[0], 
                     type="primary" if st.session_state.active_tab == 0 else "secondary",
                     use_container_width=True,
                     key="tab_assessment"):
             st.session_state.active_tab = 0
     
     with col2:
-        if st.button("להסתכל על ההתקדמות שלי", 
+        if st.button(tab_names[1], 
                     type="primary" if st.session_state.active_tab == 1 else "secondary",
                     use_container_width=True,
                     key="tab_progress"):
             st.session_state.active_tab = 1
-    
+            
     with col3:
-        if st.button("איך ניתן להתקדם אל המטרה", 
+        if st.button(tab_names[2],
                     type="primary" if st.session_state.active_tab == 2 else "secondary",
                     use_container_width=True,
-                    key="tab_guide"):
+                    key="tab_guidance"):
             st.session_state.active_tab = 2
     
     st.markdown("---")
@@ -516,7 +393,7 @@ def main():
                     st.session_state.active_tab = 1  # Switch to progress tab
                     st.rerun()
     
-    elif st.session_state.active_tab == 1:  # Progress tab
+    elif st.session_state.active_tab == 1: # Progress tab
         st.markdown("<h3 style='text-align: center;'>הזן את הציונים שלך</h3>", unsafe_allow_html=True)
         st.markdown("<p style='text-align: center; color: #666; margin-bottom: 2rem;'>הזן ציונים מ-0 עד 100 עבור כל הערכה. הציונים יישמרו אוטומטית.</p>", unsafe_allow_html=True)
         
@@ -590,9 +467,28 @@ def main():
                 st.dataframe(table_data, use_container_width=True, hide_index=True)
         else:
             st.info("הזן ציונים כדי לראות את הגרף והסטטיסטיקות!")
-    
-    else:  # active_tab == 2 (Progress Guide tab)
-        display_progress_guide()
+            
+    else: # active_tab == 2 (New tab)
+        st.markdown("<h2 style='text-align: center;'>איך ניתן להתקדם אל המטרה</h2>", unsafe_allow_html=True)
+        st.markdown("---")
+        
+        st.markdown("""
+        <div style='text-align: right; direction: rtl; font-size: 1.2rem; line-height: 1.8;'>
+        <p>בתחומים שבהם תרצו <b>לשפר את הציון</b>:</p>
+        <ul>
+            <li>• אתרו את הנושאים שיש צורך להשלים או לחזור עליהם, וצרו רשימה מסודרת.</li>
+            <li>• קבעו פגישה פרטנית עם המורה.</li>
+            <li>• היעזרו ב-AI לתרגול וחיזוק.</li>
+        </ul>
+        <p>בתחומים שבהם תרצו <b>לשמר את הציון</b>:</p>
+        <ul>
+            <li>• קבעו חזרות קבועות על החומר.</li>
+        </ul>
+        <p>זכרו גם <b>לנוח</b> ולעשות דברים שמחזירים לכם אנרגיה!</p>
+        <p>לאחר שזיהיתם מה צריך לעשות – קבעו <b>יעדים יומיים ושבועיים</b>.</p>
+        <p style='text-align: center; font-weight: bold; font-size: 1.5rem; margin-top: 2rem;'>סומך עליכם! דניאל</p>
+        </div>
+        """, unsafe_allow_html=True)
 
 if __name__ == "__main__":
     main()
