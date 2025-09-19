@@ -143,6 +143,54 @@ st.markdown("""
         box-shadow: 0 6px 20px rgba(0,0,0,0.1);
     }
     
+    .goal-card {
+        background: linear-gradient(135deg, #fff5f5 0%, #fed7d7 100%);
+        padding: 2rem;
+        border-radius: 18px;
+        margin: 1.5rem 0;
+        border-right: 6px solid #f56565;
+        box-shadow: 0 6px 20px rgba(245, 101, 101, 0.15);
+        direction: rtl;
+        text-align: right;
+        transition: transform 0.2s ease;
+    }
+    
+    .goal-card:hover {
+        transform: translateY(-2px);
+    }
+    
+    .strategy-card {
+        background: linear-gradient(135deg, #f0fff4 0%, #c6f6d5 100%);
+        padding: 2rem;
+        border-radius: 18px;
+        margin: 1.5rem 0;
+        border-right: 6px solid #48bb78;
+        box-shadow: 0 6px 20px rgba(72, 187, 120, 0.15);
+        direction: rtl;
+        text-align: right;
+        transition: transform 0.2s ease;
+    }
+    
+    .strategy-card:hover {
+        transform: translateY(-2px);
+    }
+    
+    .tip-card {
+        background: linear-gradient(135deg, #fffbf0 0%, #feebc8 100%);
+        padding: 2rem;
+        border-radius: 18px;
+        margin: 1.5rem 0;
+        border-right: 6px solid #ed8936;
+        box-shadow: 0 6px 20px rgba(237, 137, 54, 0.15);
+        direction: rtl;
+        text-align: right;
+        transition: transform 0.2s ease;
+    }
+    
+    .tip-card:hover {
+        transform: translateY(-2px);
+    }
+    
     .stSlider > div > div {
         direction: ltr;
     }
@@ -256,6 +304,76 @@ def display_statistics_from_manual(scores_dict):
         </div>
         """.format(total_assessments), unsafe_allow_html=True)
 
+def display_goal_progress_tab():
+    """Display the goal progress strategies tab"""
+    st.markdown("<h3 style='text-align: center; color: #2D3748; margin-bottom: 2rem;'>איך ניתן להתקדם למטרה?</h3>", unsafe_allow_html=True)
+    
+    # Goal setting section
+    st.markdown("""
+    <div class="goal-card">
+        <h4 style="color: #2D3748; margin-bottom: 1rem;">🎯 הגדרת מטרות חכמות</h4>
+        <p style="margin: 0.5rem 0;"><strong>ספציפית:</strong> הגדר מטרה ברורה ומדויקת (למשל: "לקבל 85 במתמטיקה")</p>
+        <p style="margin: 0.5rem 0;"><strong>מדידה:</strong> קבע איך תמדוד הצלחה (ציונים, הבנת חומר)</p>
+        <p style="margin: 0.5rem 0;"><strong>ריאלית:</strong> וודא שהמטרה אפשרית עבורך</p>
+        <p style="margin: 0.5rem 0;"><strong>זמן:</strong> קבע מועד יעד ברור</p>
+    </div>
+    """, unsafe_allow_html=True)
+    
+    # Learning strategies
+    st.markdown("""
+    <div class="strategy-card">
+        <h4 style="color: #2D3748; margin-bottom: 1rem;">📚 אסטרטגיות לימוד יעילות</h4>
+        <p style="margin: 0.5rem 0;"><strong>חזרה מרווחת:</strong> חזור על החומר במרווחים קבועים</p>
+        <p style="margin: 0.5rem 0;"><strong>למידה אקטיבית:</strong> הסבר את החומר לעצמך או לאחרים</p>
+        <p style="margin: 0.5rem 0;"><strong>תרגול מבחנים:</strong> פתור מבחנים ותרגילים קודמים</p>
+        <p style="margin: 0.5rem 0;"><strong>פילוח החומר:</strong> חלק חומר גדול לחלקים קטנים</p>
+    </div>
+    """, unsafe_allow_html=True)
+    
+    # Time management
+    st.markdown("""
+    <div class="tip-card">
+        <h4 style="color: #2D3748; margin-bottom: 1rem;">⏰ ניהול זמן חכם</h4>
+        <p style="margin: 0.5rem 0;"><strong>תכנון שבועי:</strong> הכן תוכנית לימודים לכל שבוע</p>
+        <p style="margin: 0.5rem 0;"><strong>טכניקת הפומודורו:</strong> למד 25 דקות, הפסקה 5 דקות</p>
+        <p style="margin: 0.5rem 0;"><strong>סדרי עדיפויות:</strong> התמקד במקצועות הכי חשובים</p>
+        <p style="margin: 0.5rem 0;"><strong>הכנה מוקדמת:</strong> התחל להכין למבחנים מראש</p>
+    </div>
+    """, unsafe_allow_html=True)
+    
+    # Motivation and wellbeing
+    st.markdown("""
+    <div class="strategy-card">
+        <h4 style="color: #2D3748; margin-bottom: 1rem;">💪 שמירה על מוטיבציה ורווחה</h4>
+        <p style="margin: 0.5rem 0;"><strong>חגוג הישגים קטנים:</strong> הכר בהצלחות שלך, גם הקטנות</p>
+        <p style="margin: 0.5rem 0;"><strong>פעילות גופנית:</strong> שמור על אורח חיים בריא</p>
+        <p style="margin: 0.5rem 0;"><strong>שינה טובה:</strong> דאג לשעות שינה מספיקות</p>
+        <p style="margin: 0.5rem 0;"><strong>תמיכה חברתית:</strong> למד עם חברים או קבל עזרה</p>
+    </div>
+    """, unsafe_allow_html=True)
+    
+    # Specific subject tips
+    st.markdown("""
+    <div class="tip-card">
+        <h4 style="color: #2D3748; margin-bottom: 1rem;">📖 טיפים לפי מקצועות</h4>
+        <p style="margin: 0.5rem 0;"><strong>מתמטיקה:</strong> תרגל הרבה, הבן את העקרונות לא רק את הנוסחאות</p>
+        <p style="margin: 0.5rem 0;"><strong>שפות:</strong> קרא בקול רם, השתמש באפליקציות לחזרה על מילים</p>
+        <p style="margin: 0.5rem 0;"><strong>מדעים:</strong> הכן תרשימים וסיכומים ויזואליים</p>
+        <p style="margin: 0.5rem 0;"><strong>היסטוריה:</strong> צור קו זמן ותקשר אירועים</p>
+    </div>
+    """, unsafe_allow_html=True)
+    
+    # Resources and tools
+    st.markdown("""
+    <div class="goal-card">
+        <h4 style="color: #2D3748; margin-bottom: 1rem;">🛠️ כלים ומשאבים מועילים</h4>
+        <p style="margin: 0.5rem 0;"><strong>אפליקציות:</strong> השתמש באפליקציות למעקב אחר הרגלי לימוד</p>
+        <p style="margin: 0.5rem 0;"><strong>יומן לימודים:</strong> רשום מה למדת ואיך הרגשת</p>
+        <p style="margin: 0.5rem 0;"><strong>קבוצות לימוד:</strong> הצטרף לקבוצות במקצועות קשים</p>
+        <p style="margin: 0.5rem 0;"><strong>מורים פרטיים:</strong> קבל עזרה נוספת במקצועות שצריך</p>
+    </div>
+    """, unsafe_allow_html=True)
+
 def main():
     # Header
     st.markdown('<h1 class="main-header">הערכה פנימית - לוח תוצאות</h1>', unsafe_allow_html=True)
@@ -266,18 +384,15 @@ def main():
     if 'show_results' not in st.session_state:
         st.session_state.show_results = False
     if 'active_tab' not in st.session_state:
-        st.session_state.active_tab = 0  # 0 for first tab, 1 for second tab
+        st.session_state.active_tab = 0  # 0 for first tab, 1 for second tab, 2 for third tab
     
     # Check if we need to switch to progress tab
     if st.session_state.get('switch_to_progress', False):
         st.session_state.active_tab = 1
         st.session_state.switch_to_progress = False
     
-    # Create tabs with manual selection
-    tab_names = ["הערכה חדשה", "להסתכל על ההתקדמות שלי"]
-    
     # Create tab selection buttons
-    col1, col2 = st.columns(2)
+    col1, col2, col3 = st.columns(3)
     with col1:
         if st.button("הערכה חדשה", 
                     type="primary" if st.session_state.active_tab == 0 else "secondary",
@@ -291,6 +406,13 @@ def main():
                     use_container_width=True,
                     key="tab_progress"):
             st.session_state.active_tab = 1
+    
+    with col3:
+        if st.button("איך ניתן להתקדם למטרה?", 
+                    type="primary" if st.session_state.active_tab == 2 else "secondary",
+                    use_container_width=True,
+                    key="tab_goal_progress"):
+            st.session_state.active_tab = 2
     
     st.markdown("---")
     
@@ -385,7 +507,7 @@ def main():
                     st.session_state.active_tab = 1  # Switch to progress tab
                     st.rerun()
     
-    else:  # active_tab == 1 (Progress tab)
+    elif st.session_state.active_tab == 1:  # Progress tab
         st.markdown("<h3 style='text-align: center;'>הזן את הציונים שלך</h3>", unsafe_allow_html=True)
         st.markdown("<p style='text-align: center; color: #666; margin-bottom: 2rem;'>הזן ציונים מ-0 עד 100 עבור כל הערכה. הציונים יישמרו אוטומטית.</p>", unsafe_allow_html=True)
         
@@ -459,6 +581,9 @@ def main():
                 st.dataframe(table_data, use_container_width=True, hide_index=True)
         else:
             st.info("הזן ציונים כדי לראות את הגרף והסטטיסטיקות!")
+    
+    else:  # active_tab == 2 (Goal progress strategies tab)
+        display_goal_progress_tab()
 
 if __name__ == "__main__":
     main()
