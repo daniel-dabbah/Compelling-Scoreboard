@@ -439,23 +439,8 @@ def main():
                 st.markdown('<div class="chart-container">', unsafe_allow_html=True)
                 st.markdown('<div class="chart-title">הגרף של ההתקדמות שלי</div>', unsafe_allow_html=True)
                 
-                # Calculate min and max values for better scaling
-                values = list(chart_data.values())
-                min_score = min(values)
-                max_score = max(values)
-                
-                # Set Y-axis range with some padding to make changes more visible
-                y_min = max(0, min_score - 10)  # Don't go below 0
-                y_max = min(100, max_score + 10)  # Don't go above 100
-                
-                # Ensure minimum range of 20 points for visibility
-                if (y_max - y_min) < 20:
-                    mid_point = (y_min + y_max) / 2
-                    y_min = max(0, mid_point - 10)
-                    y_max = min(100, mid_point + 10)
-                
-                # Display as line chart with dynamic scaling
-                st.line_chart(chart_data, height=400, y_min=y_min, y_max=y_max)
+                # Display as line chart
+                st.line_chart(chart_data, height=400)
                 st.markdown('</div>', unsafe_allow_html=True)
             
             # Statistics - SECOND
