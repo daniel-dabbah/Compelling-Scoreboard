@@ -369,26 +369,22 @@ def main():
                 </div>
                 """, unsafe_allow_html=True)
             
-            # Add improvement steps
-            st.markdown("""
-            <div class="improvement-box">
-                <h3 style="color: #2D3748; margin-bottom: 1rem; text-align: center;">צעדים לשיפור:</h3>
-                <p style="color: #2D3748; margin-bottom: 1rem;">עבור כל אחד מהתחומים, ניתן להתמקד בו בזמן הקרוב ולשפר</p>
-                
-                <h4 style="color: #2D3748; margin: 1rem 0 0.5rem 0;">איך ניתן לשפר מקצועות?</h4>
-                <ul style="color: #2D3748; text-align: right; margin: 0.5rem 0;">
-                    <li>להבין איזה נושאים צריך להשלים/ לחזור עליהם</li>
-                    <li>לקבוע פרטני עם המורה</li>
-                    <li>ללמוד באמצעות AI</li>
-                </ul>
-                
-                <p style="color: #2D3748; margin: 1rem 0 0.5rem 0; font-weight: 500;">מצאו מה עובד בשבילכם!</p>
-                <p style="color: #2D3748; margin: 0.5rem 0; font-weight: 500;">קבעו מטרות והשתמשו בהן לקביעת יעדים יומיים ושבועיים בכל אחד מהתחומים</p>
-                
-                <p style="color: #2D3748; margin: 1rem 0 0.5rem 0; font-weight: 500;">לא לשכוח לשמר את המקצועות, ולהחזיר אנרגיה!</p>
-                <p style="color: #2D3748; margin: 0; font-weight: 600; text-align: center;">סומך עליכם!</p>
-            </div>
-            """, unsafe_allow_html=True)
+            # Add improvement steps using regular markdown
+            st.markdown('<div class="improvement-box">', unsafe_allow_html=True)
+            st.markdown("### צעדים לשיפור:")
+            st.write("עבור כל אחד מהתחומים, ניתן להתמקד בו בזמן הקרוב ולשפר")
+            
+            st.markdown("#### איך ניתן לשפר מקצועות?")
+            st.write("• להבין איזה נושאים צריך להשלים/ לחזור עליהם")
+            st.write("• לקבוע פרטני עם המורה")
+            st.write("• ללמוד באמצעות AI")
+            
+            st.write("**מצאו מה עובד בשבילכם!**")
+            st.write("**קבעו מטרות והשתמשו בהן לקביעת יעדים יומיים ושבועיים בכל אחד מהתחומים**")
+            
+            st.write("**לא לשכוח לשמר את המקצועות, ולהחזיר אנרגיה!**")
+            st.markdown("**<div style='text-align: center'>סומך עליכם!</div>**", unsafe_allow_html=True)
+            st.markdown('</div>', unsafe_allow_html=True)
             
             # Buttons - New assessment and Go to progress
             col1, col2 = st.columns(2)
