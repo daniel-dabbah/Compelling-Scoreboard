@@ -265,11 +265,37 @@ def main():
         st.session_state.current_responses = {}
     if 'show_results' not in st.session_state:
         st.session_state.show_results = False
+    if 'active_tab' not in st.session_state:
+        st.session_state.active_tab = 0  # 0 for first tab, 1 for second tab
     
-    # Create tabs
-    tab1, tab2 = st.tabs(["הערכה חדשה", "להסתכל על ההתקדמות שלי"])
+    # Check if we need to switch to progress tab
+    if st.session_state.get('switch_to_progress', False):
+        st.session_state.active_tab = 1
+        st.session_state.switch_to_progress = False
     
-    with tab1:
+    # Create tabs with manual selection
+    tab_names = ["הערכה חדשה", "להסתכל על ההתקדמות שלי"]
+    
+    # Create tab selection buttons
+    col1, col2 = st.columns(2)
+    with col1:
+        if st.button("הערכה חדשה", 
+                    type="primary" if st.session_state.active_tab == 0 else "secondary",
+                    use_container_width=True,
+                    key="tab_assessment"):
+            st.session_state.active_tab = 0
+    
+    with col2:
+        if st.button("להסתכל על ההתקדמות שלי", 
+                    type="primary" if st.session_state.active_tab == 1 else "secondary",
+                    use_container_width=True,
+                    key="tab_progress"):
+            st.session_state.active_tab = 1
+    
+    st.markdown("---")
+    
+    # Display content based on active tab
+    if st.session_state.active_tab == 0:
         if not st.session_state.show_results:
             st.markdown("<div style='text-align: center; margin-bottom: 2rem;'><p style='font-size: 1.1rem; color: #2D3748;'>תן לכל מקצוע ציון מ-1 (בכלל לא בטוח) עד 10 (מאוד בטוח) - לפי איך שאתה מרגיש ממש עכשיו.</p></div>", unsafe_allow_html=True)
             
@@ -347,20 +373,19 @@ def main():
             col1, col2 = st.columns(2)
             
             with col1:
-                if st.button("לעשות הערכה חדשה", type="primary", use_container_width=True):
+                if st.button("לעשות הערכה חדשה", type="secondary", use_container_width=True):
                     st.session_state.current_responses = {}
                     st.session_state.show_results = False
                     st.rerun()
             
             with col2:
-                if st.button("לעבור לדף ההתקדמות", type="secondary", use_container_width=True):
+                if st.button("לעבור לדף ההתקדמות", type="primary", use_container_width=True, key="goto_progress"):
                     st.session_state.current_responses = {}
                     st.session_state.show_results = False
-                    # Switch to progress tab by setting a flag
-                    st.session_state.switch_to_progress = True
+                    st.session_state.active_tab = 1  # Switch to progress tab
                     st.rerun()
     
-    with tab2:
+    else:  # active_tab == 1 (Progress tab)
         st.markdown("<h3 style='text-align: center;'>הזן את הציונים שלך</h3>", unsafe_allow_html=True)
         st.markdown("<p style='text-align: center; color: #666; margin-bottom: 2rem;'>הזן ציונים מ-0 עד 100 עבור כל הערכה. הציונים יישמרו אוטומטית.</p>", unsafe_allow_html=True)
         
