@@ -20,12 +20,12 @@ st.markdown("""
     }
     
     .main .block-container {
-        background: linear-gradient(135deg, #f7fafc 0%, #edf2f7 50%, #e2e8f0 100%);
+        background: linear-gradient(135deg, #f8fafc 0%, #e6f3ff 50%, #dbeafe 100%);
         min-height: 100vh;
     }
     
     .stApp {
-        background: linear-gradient(135deg, #f0f4f8 0%, #d6e8f5 50%, #c8d8e4 100%);
+        background: linear-gradient(135deg, #f1f5f9 0%, #e0f2fe 50%, #e0f7fa 100%);
     }
     
     .main-header {
@@ -34,7 +34,7 @@ st.markdown("""
         text-align: center;
         color: #2D3748;
         margin-bottom: 2.5rem;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        background: linear-gradient(135deg, #3b82f6 0%, #1e40af 100%);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         background-clip: text;
@@ -46,8 +46,8 @@ st.markdown("""
         padding: 2rem;
         border-radius: 18px;
         margin: 1.8rem 0;
-        border-right: 6px solid #4299e1;
-        box-shadow: 0 6px 20px rgba(66, 153, 225, 0.15);
+        border-right: 6px solid #60a5fa;
+        box-shadow: 0 6px 20px rgba(96, 165, 250, 0.12);
         direction: rtl;
         text-align: right;
         transition: transform 0.2s ease, box-shadow 0.2s ease;
@@ -55,7 +55,7 @@ st.markdown("""
     
     .question-container:hover {
         transform: translateY(-2px);
-        box-shadow: 0 8px 25px rgba(66, 153, 225, 0.2);
+        box-shadow: 0 8px 25px rgba(96, 165, 250, 0.18);
     }
     
     .question-container h4 {
@@ -72,43 +72,43 @@ st.markdown("""
         font-weight: bold;
         text-align: center;
         padding: 3rem;
-        background: linear-gradient(135deg, #4299e1 0%, #667eea 50%, #764ba2 100%);
+        background: linear-gradient(135deg, #60a5fa 0%, #3b82f6 50%, #2563eb 100%);
         color: white;
         border-radius: 25px;
         margin: 2.5rem 0;
-        box-shadow: 0 10px 30px rgba(66, 153, 225, 0.4);
+        box-shadow: 0 10px 30px rgba(96, 165, 250, 0.25);
         direction: ltr;
     }
     
     .feedback-box {
-        background: linear-gradient(135deg, #e6fffa 0%, #b2f5ea 100%);
+        background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%);
         padding: 2.2rem;
         border-radius: 18px;
         margin: 1.8rem 0;
-        border: 2px solid #4fd1c7;
-        box-shadow: 0 6px 20px rgba(79, 209, 199, 0.15);
+        border: 2px solid #86efac;
+        box-shadow: 0 6px 20px rgba(134, 239, 172, 0.12);
         direction: rtl;
         text-align: center;
     }
     
     .improvement-box {
-        background: linear-gradient(135deg, #f0fff4 0%, #c6f6d5 100%);
+        background: linear-gradient(135deg, #f0f9ff 0%, #dbeafe 100%);
         padding: 2.2rem;
         border-radius: 18px;
         margin: 1.8rem 0;
-        border: 2px solid #68d391;
-        box-shadow: 0 6px 20px rgba(104, 211, 145, 0.15);
+        border: 2px solid #93c5fd;
+        box-shadow: 0 6px 20px rgba(147, 197, 253, 0.12);
         direction: rtl;
         text-align: center;
     }
     
     .progress-stats {
-        background: linear-gradient(135deg, #ffffff 0%, #f7fafc 100%);
+        background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
         padding: 2rem;
         border-radius: 18px;
-        box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+        box-shadow: 0 6px 20px rgba(0,0,0,0.08);
         margin: 1.2rem 0;
-        border-top: 4px solid #4299e1;
+        border-top: 4px solid #60a5fa;
         text-align: center;
         transition: transform 0.2s ease;
     }
@@ -122,7 +122,7 @@ st.markdown("""
         padding: 2rem;
         border-radius: 18px;
         margin: 2rem 0;
-        box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+        box-shadow: 0 6px 20px rgba(0,0,0,0.08);
         border: 1px solid #e2e8f0;
     }
     
@@ -140,54 +140,22 @@ st.markdown("""
         border-radius: 18px;
         margin: 1.8rem 0;
         border: 2px solid #e2e8f0;
-        box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+        box-shadow: 0 6px 20px rgba(0,0,0,0.08);
     }
     
-    .goal-card {
-        background: linear-gradient(135deg, #fff5f5 0%, #fed7d7 100%);
-        padding: 2rem;
+    .unified-content-card {
+        background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+        padding: 2.5rem;
         border-radius: 18px;
-        margin: 1.5rem 0;
-        border-right: 6px solid #f56565;
-        box-shadow: 0 6px 20px rgba(245, 101, 101, 0.15);
+        margin: 1.8rem 0;
+        border: 2px solid #e2e8f0;
+        box-shadow: 0 8px 25px rgba(0,0,0,0.08);
         direction: rtl;
         text-align: right;
         transition: transform 0.2s ease;
     }
     
-    .goal-card:hover {
-        transform: translateY(-2px);
-    }
-    
-    .strategy-card {
-        background: linear-gradient(135deg, #f0fff4 0%, #c6f6d5 100%);
-        padding: 2rem;
-        border-radius: 18px;
-        margin: 1.5rem 0;
-        border-right: 6px solid #48bb78;
-        box-shadow: 0 6px 20px rgba(72, 187, 120, 0.15);
-        direction: rtl;
-        text-align: right;
-        transition: transform 0.2s ease;
-    }
-    
-    .strategy-card:hover {
-        transform: translateY(-2px);
-    }
-    
-    .tip-card {
-        background: linear-gradient(135deg, #fffbf0 0%, #feebc8 100%);
-        padding: 2rem;
-        border-radius: 18px;
-        margin: 1.5rem 0;
-        border-right: 6px solid #ed8936;
-        box-shadow: 0 6px 20px rgba(237, 137, 54, 0.15);
-        direction: rtl;
-        text-align: right;
-        transition: transform 0.2s ease;
-    }
-    
-    .tip-card:hover {
+    .unified-content-card:hover {
         transform: translateY(-2px);
     }
     
@@ -216,10 +184,10 @@ st.markdown("""
     }
     
     .stTabs [aria-selected="true"] {
-        background: linear-gradient(135deg, #4299e1 0%, #667eea 100%);
+        background: linear-gradient(135deg, #60a5fa 0%, #3b82f6 100%);
         color: white;
-        border-color: #4299e1;
-        box-shadow: 0 4px 15px rgba(66, 153, 225, 0.3);
+        border-color: #60a5fa;
+        box-shadow: 0 4px 15px rgba(96, 165, 250, 0.25);
     }
 </style>
 """, unsafe_allow_html=True)
@@ -308,37 +276,21 @@ def display_goal_progress_tab():
     """Display the goal progress strategies tab"""
     st.markdown("<h3 style='text-align: center; color: #2D3748; margin-bottom: 2rem;'>איך ניתן להתקדם אל המטרה?</h3>", unsafe_allow_html=True)
     
-    # Improvement strategies section
+    # Single unified card with all content
     st.markdown("""
-    <div class="goal-card">
-        <h4 style="color: #2D3748; margin-bottom: 1rem;">📈 בתחומים שבהם תרצו לשפר את הציון:</h4>
+    <div class="unified-content-card">
+        <h4 style="color: #2D3748; margin-bottom: 1.5rem;">בתחומים שבהם תרצו לשפר את הציון:</h4>
         <p style="margin: 0.5rem 0;">• אתרו את הנושאים שיש צורך להשלים או לחזור עליהם, וצרו רשימה מסודרת.</p>
         <p style="margin: 0.5rem 0;">• קבעו פגישה פרטנית עם המורה.</p>
-        <p style="margin: 0.5rem 0;">• היעזרו ב-AI לתרגול וחיזוק.</p>
-    </div>
-    """, unsafe_allow_html=True)
-    
-    # Maintaining scores section
-    st.markdown("""
-    <div class="strategy-card">
-        <h4 style="color: #2D3748; margin-bottom: 1rem;">📚 בתחומים שבהם תרצו לשמר את הציון:</h4>
-        <p style="margin: 0.5rem 0;">• קבעו חזרות קבועות על החומר.</p>
-    </div>
-    """, unsafe_allow_html=True)
-    
-    # Rest and energy section
-    st.markdown("""
-    <div class="tip-card">
-        <h4 style="color: #2D3748; margin-bottom: 1rem;">⚡ זכרו גם לנוח ולעשות דברים שמחזירים לכם אנרגיה!</h4>
-    </div>
-    """, unsafe_allow_html=True)
-    
-    # Goals and planning section
-    st.markdown("""
-    <div class="improvement-box">
-        <h4 style="color: #2D3748; margin-bottom: 1rem;">🎯 תכנון ויעדים</h4>
-        <p style="margin: 0.5rem 0;">לאחר שזיהיתם מה צריך לעשות – קבעו יעדים יומיים ושבועיים.</p>
-        <p style="margin: 1rem 0; font-weight: bold; font-size: 1.1rem;">סומך עליכם! דניאל</p>
+        <p style="margin: 0.5rem 0 1.5rem 0;">• היעזרו ב-AI לתרגול וחיזוק.</p>
+        
+        <h4 style="color: #2D3748; margin-bottom: 1rem;">בתחומים שבהם תרצו לשמר את הציון:</h4>
+        <p style="margin: 0.5rem 0 2rem 0;">• קבעו חזרות קבועות על החומר.</p>
+        
+        <p style="margin: 1.5rem 0; font-size: 1.1rem; color: #2D3748;">זכרו גם לנוח ולעשות דברים שמחזירים לכם אנרגיה!</p>
+        
+        <p style="margin: 1.5rem 0 0.5rem 0; color: #2D3748;">לאחר שזיהיתם מה צריך לעשות – קבעו יעדים יומיים ושבועיים.</p>
+        <p style="margin: 1rem 0; font-weight: bold; font-size: 1.1rem; color: #2D3748;">סומך עליכם! דניאל</p>
     </div>
     """, unsafe_allow_html=True)
 
