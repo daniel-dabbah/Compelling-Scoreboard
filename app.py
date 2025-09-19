@@ -99,7 +99,10 @@ st.markdown("""
         border: 2px solid #68d391;
         box-shadow: 0 6px 20px rgba(104, 211, 145, 0.15);
         direction: rtl;
-        text-align: center;
+        text-align: right;
+        float: right;
+        width: 100%;
+        margin-right: 0;
     }
     
     .progress-stats {
@@ -370,12 +373,10 @@ def main():
                 """, unsafe_allow_html=True)
             
             # Add improvement steps using columns - RIGHT SIDE
-            col1, col2 = st.columns([1.5, 1])  # 60% ריק, 40% לתוכן
+            col_empty, col_content = st.columns([2, 1])  # 66% ריק, 33% לתוכן
             
-            with col2:  # העמודה הימנית
+            with col_content:  # העמודה הימנית
                 st.markdown('<div class="improvement-box">', unsafe_allow_html=True)
-                
-                st.markdown('<div style="direction: rtl; text-align: right;">', unsafe_allow_html=True)
                 
                 st.markdown("### צעדים לשיפור:")
                 st.write("עבור כל אחד מהתחומים, ניתן להתמקד בו בזמן הקרוב ולשפר")
@@ -395,7 +396,6 @@ def main():
                 
                 st.markdown("### **סומך עליכם!**")
                 
-                st.markdown('</div>', unsafe_allow_html=True)
                 st.markdown('</div>', unsafe_allow_html=True)
             
             # Buttons - New assessment and Go to progress
