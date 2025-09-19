@@ -99,10 +99,7 @@ st.markdown("""
         border: 2px solid #68d391;
         box-shadow: 0 6px 20px rgba(104, 211, 145, 0.15);
         direction: rtl;
-        text-align: right;
-        float: right;
-        width: 100%;
-        margin-right: 0;
+        text-align: center;
     }
     
     .progress-stats {
@@ -369,34 +366,6 @@ def main():
                 st.markdown(f"""
                 <div class="feedback-box">
                     <p style="font-size: 1.1rem; margin: 0; text-align: center; color: #2D3748; font-weight: 500;">{feedback}</p>
-                </div>
-                """, unsafe_allow_html=True)
-            
-            # Add improvement steps using columns - RIGHT SIDE
-            col_empty, col_content = st.columns([2, 1])  # 66% ריק, 33% לתוכן
-            
-            with col_content:  # העמודה הימנית
-                st.markdown("""
-                <div class="improvement-box">
-                    <h3 style="direction: rtl; text-align: right;">צעדים לשיפור:</h3>
-                    <p style="direction: rtl; text-align: right;">עבור כל אחד מהתחומים, ניתן להתמקד בו בזמן הקרוב ולשפר</p>
-                    
-                    <h4 style="direction: rtl; text-align: right;">איך ניתן לשפר מקצועות?</h4>
-                    <ul style="direction: rtl; text-align: right;">
-                        <li>להבין איזה נושאים צריך להשלים/ לחזור עליהם</li>
-                        <li>לקבוע פרטני עם המורה</li>
-                        <li>ללמוד באמצעות AI</li>
-                    </ul>
-                    
-                    <p style="direction: rtl; text-align: right; font-weight: bold;">מצאו מה עובד בשבילכם!</p>
-                    
-                    <p style="direction: rtl; text-align: right; font-weight: bold;">קבעו מטרות והשתמשו בהן לקביעת יעדים יומיים ושבועיים בכל אחד מהתחומים</p>
-                    
-                    <p style="direction: rtl; text-align: right; font-weight: bold;">לא לשכוח לשמר את המקצועות, ולהחזיר אנרגיה!</p>
-                    
-                    <hr style="margin: 1rem 0;">
-                    
-                    <h3 style="direction: rtl; text-align: right; font-weight: bold;">סומך עליכם!</h3>
                 </div>
                 """, unsafe_allow_html=True)
             
