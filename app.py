@@ -369,31 +369,34 @@ def main():
                 </div>
                 """, unsafe_allow_html=True)
             
-            # Add improvement steps using Streamlit markdown with RTL
-            st.markdown('<div class="improvement-box">', unsafe_allow_html=True)
+            # Add improvement steps using columns - RIGHT SIDE
+            col1, col2 = st.columns([1.5, 1])  # 60% ריק, 40% לתוכן
             
-            st.markdown('<div style="direction: rtl; text-align: right;">', unsafe_allow_html=True)
-            
-            st.markdown("### צעדים לשיפור:")
-            st.write("עבור כל אחד מהתחומים, ניתן להתמקד בו בזמן הקרוב ולשפר")
-            
-            st.markdown("#### איך ניתן לשפר מקצועות?")
-            st.write("• להבין איזה נושאים צריך להשלים/ לחזור עליהם")
-            st.write("• לקבוע פרטני עם המורה")
-            st.write("• ללמוד באמצעות AI")
-            
-            st.markdown("**מצאו מה עובד בשבילכם!**")
-            
-            st.markdown("**קבעו מטרות והשתמשו בהן לקביעת יעדים יומיים ושבועיים בכל אחד מהתחומים**")
-            
-            st.markdown("**לא לשכוח לשמר את המקצועות, ולהחזיר אנרגיה!**")
-            
-            st.markdown("---")
-            
-            st.markdown("### **סומך עליכם!**")
-            
-            st.markdown('</div>', unsafe_allow_html=True)
-            st.markdown('</div>', unsafe_allow_html=True)
+            with col2:  # העמודה הימנית
+                st.markdown('<div class="improvement-box">', unsafe_allow_html=True)
+                
+                st.markdown('<div style="direction: rtl; text-align: right;">', unsafe_allow_html=True)
+                
+                st.markdown("### צעדים לשיפור:")
+                st.write("עבור כל אחד מהתחומים, ניתן להתמקד בו בזמן הקרוב ולשפר")
+                
+                st.markdown("#### איך ניתן לשפר מקצועות?")
+                st.write("• להבין איזה נושאים צריך להשלים/ לחזור עליהם")
+                st.write("• לקבוע פרטני עם המורה")
+                st.write("• ללמוד באמצעות AI")
+                
+                st.markdown("**מצאו מה עובד בשבילכם!**")
+                
+                st.markdown("**קבעו מטרות והשתמשו בהן לקביעת יעדים יומיים ושבועיים בכל אחד מהתחומים**")
+                
+                st.markdown("**לא לשכוח לשמר את המקצועות, ולהחזיר אנרגיה!**")
+                
+                st.markdown("---")
+                
+                st.markdown("### **סומך עליכם!**")
+                
+                st.markdown('</div>', unsafe_allow_html=True)
+                st.markdown('</div>', unsafe_allow_html=True)
             
             # Buttons - New assessment and Go to progress
             col1, col2 = st.columns(2)
