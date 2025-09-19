@@ -376,27 +376,29 @@ def main():
             col_empty, col_content = st.columns([2, 1])  # 66% ריק, 33% לתוכן
             
             with col_content:  # העמודה הימנית
-                st.markdown('<div class="improvement-box">', unsafe_allow_html=True)
-                
-                st.markdown("### צעדים לשיפור:")
-                st.write("עבור כל אחד מהתחומים, ניתן להתמקד בו בזמן הקרוב ולשפר")
-                
-                st.markdown("#### איך ניתן לשפר מקצועות?")
-                st.markdown("• להבין איזה נושאים צריך להשלים/ לחזור עליהם")
-                st.markdown("• לקבוע פרטני עם המורה") 
-                st.markdown("• ללמוד באמצעות AI")
-                
-                st.markdown("**מצאו מה עובד בשבילכם!**")
-                
-                st.markdown("**קבעו מטרות והשתמשו בהן לקביעת יעדים יומיים ושבועיים בכל אחד מהתחומים**")
-                
-                st.markdown("**לא לשכוח לשמר את המקצועות, ולהחזיר אנרגיה!**")
-                
-                st.markdown("---")
-                
-                st.markdown("### **סומך עליכם!**")
-                
-                st.markdown('</div>', unsafe_allow_html=True)
+                st.markdown("""
+                <div class="improvement-box">
+                    <h3 style="direction: rtl; text-align: right;">צעדים לשיפור:</h3>
+                    <p style="direction: rtl; text-align: right;">עבור כל אחד מהתחומים, ניתן להתמקד בו בזמן הקרוב ולשפר</p>
+                    
+                    <h4 style="direction: rtl; text-align: right;">איך ניתן לשפר מקצועות?</h4>
+                    <ul style="direction: rtl; text-align: right;">
+                        <li>להבין איזה נושאים צריך להשלים/ לחזור עליהם</li>
+                        <li>לקבוע פרטני עם המורה</li>
+                        <li>ללמוד באמצעות AI</li>
+                    </ul>
+                    
+                    <p style="direction: rtl; text-align: right; font-weight: bold;">מצאו מה עובד בשבילכם!</p>
+                    
+                    <p style="direction: rtl; text-align: right; font-weight: bold;">קבעו מטרות והשתמשו בהן לקביעת יעדים יומיים ושבועיים בכל אחד מהתחומים</p>
+                    
+                    <p style="direction: rtl; text-align: right; font-weight: bold;">לא לשכוח לשמר את המקצועות, ולהחזיר אנרגיה!</p>
+                    
+                    <hr style="margin: 1rem 0;">
+                    
+                    <h3 style="direction: rtl; text-align: right; font-weight: bold;">סומך עליכם!</h3>
+                </div>
+                """, unsafe_allow_html=True)
             
             # Buttons - New assessment and Go to progress
             col1, col2 = st.columns(2)
