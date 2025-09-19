@@ -369,43 +369,29 @@ def main():
                 </div>
                 """, unsafe_allow_html=True)
             
-            # Add improvement steps with proper RTL direction
-            st.markdown("""
-            <div class="improvement-box" style="direction: rtl; text-align: right;">
-                <div style="text-align: center; margin-bottom: 1.5rem;">
-                    <strong style="font-size: 1.3rem; color: #2D3748;">צעדים לשיפור:</strong>
-                </div>
+            # Add improvement steps using Streamlit markdown
+            with st.container():
+                st.markdown('<div class="improvement-box" style="direction: rtl;">', unsafe_allow_html=True)
                 
-                <p style="color: #2D3748; margin-bottom: 1.5rem; line-height: 1.6;">
-                    עבור כל אחד מהתחומים, ניתן להתמקד בו בזמן הקרוב ולשפר
-                </p>
+                st.markdown("### 📈 צעדים לשיפור:")
+                st.write("עבור כל אחד מהתחומים, ניתן להתמקד בו בזמן הקרוב ולשפר")
                 
-                <div style="margin-bottom: 1.5rem;">
-                    <strong style="color: #2D3748; font-size: 1.1rem;">איך ניתן לשפר מקצועות?</strong>
-                    <div style="margin-top: 0.5rem;">
-                        <p style="color: #2D3748; margin: 0.3rem 0;">• להבין איזה נושאים צריך להשלים/ לחזור עליהם</p>
-                        <p style="color: #2D3748; margin: 0.3rem 0;">• לקבוע פרטני עם המורה</p>
-                        <p style="color: #2D3748; margin: 0.3rem 0;">• ללמוד באמצעות AI</p>
-                    </div>
-                </div>
+                st.markdown("#### 💡 איך ניתן לשפר מקצועות?")
+                st.write("• להבין איזה נושאים צריך להשלים/ לחזור עליהם")
+                st.write("• לקבוע פרטני עם המורה")
+                st.write("• ללמוד באמצעות AI")
                 
-                <p style="color: #2D3748; margin: 0.8rem 0; font-weight: bold;">
-                    מצאו מה עובד בשבילכם!
-                </p>
+                st.markdown("**מצאו מה עובד בשבילכם!**")
                 
-                <p style="color: #2D3748; margin: 0.8rem 0; font-weight: bold; line-height: 1.6;">
-                    קבעו מטרות והשתמשו בהן לקביעת יעדים יומיים ושבועיים בכל אחד מהתחומים
-                </p>
+                st.markdown("**קבעו מטרות והשתמשו בהן לקביעת יעדים יומיים ושבועיים בכל אחד מהתחומים**")
                 
-                <p style="color: #2D3748; margin: 0.8rem 0; font-weight: bold;">
-                    לא לשכוח לשמר את המקצועות, ולהחזיר אנרגיה!
-                </p>
+                st.markdown("**לא לשכוח לשמר את המקצועות, ולהחזיר אנרגיה!**")
                 
-                <div style="text-align: center; margin-top: 1.5rem;">
-                    <strong style="color: #2D3748; font-size: 1.2rem;">סומך עליכם!</strong>
-                </div>
-            </div>
-            """, unsafe_allow_html=True)
+                st.markdown("---")
+                
+                st.markdown("### 💪 **סומך עליכם!**")
+                
+                st.markdown('</div>', unsafe_allow_html=True)
             
             # Buttons - New assessment and Go to progress
             col1, col2 = st.columns(2)
