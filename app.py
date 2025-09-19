@@ -143,6 +143,67 @@ st.markdown("""
         box-shadow: 0 6px 20px rgba(0,0,0,0.1);
     }
     
+    .guidance-container {
+        background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+        padding: 2.5rem;
+        border-radius: 20px;
+        margin: 2rem 0;
+        box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+        direction: rtl;
+        text-align: right;
+        border-right: 5px solid #667eea;
+    }
+    
+    .guidance-section {
+        margin: 2rem 0;
+        padding: 1.5rem;
+        background: linear-gradient(135deg, #faf5ff 0%, #ede9fe 100%);
+        border-radius: 15px;
+        border-right: 4px solid #9f7aea;
+    }
+    
+    .guidance-title {
+        font-size: 1.4rem;
+        font-weight: 600;
+        color: #553c9a;
+        margin-bottom: 1rem;
+    }
+    
+    .guidance-list {
+        margin-right: 1.5rem;
+        line-height: 2;
+        color: #2D3748;
+    }
+    
+    .guidance-list li {
+        margin: 0.8rem 0;
+        font-size: 1.1rem;
+    }
+    
+    .reminder-box {
+        background: linear-gradient(135deg, #fef5e7 0%, #fdeaa8 100%);
+        padding: 1.8rem;
+        border-radius: 15px;
+        margin: 2rem 0;
+        border: 2px solid #f39c12;
+        text-align: center;
+        direction: rtl;
+        font-size: 1.2rem;
+        color: #7c3a00;
+        font-weight: 500;
+    }
+    
+    .signature-box {
+        text-align: center;
+        margin-top: 3rem;
+        padding: 1.5rem;
+        background: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 100%);
+        border-radius: 15px;
+        font-size: 1.3rem;
+        color: #075985;
+        font-weight: 600;
+    }
+    
     .stSlider > div > div {
         direction: ltr;
     }
@@ -263,38 +324,37 @@ def main():
     # Initialize session state
     if 'current_responses' not in st.session_state:
         st.session_state.current_responses = {}
-    if 'show_results' not in st.st.session_state:
+    if 'show_results' not in st.session_state:
         st.session_state.show_results = False
     if 'active_tab' not in st.session_state:
-        st.session_state.active_tab = 0  # 0 for first tab, 1 for second, 2 for third
+        st.session_state.active_tab = 0  # 0 for first tab, 1 for second tab, 2 for third tab
     
     # Check if we need to switch to progress tab
     if st.session_state.get('switch_to_progress', False):
         st.session_state.active_tab = 1
         st.session_state.switch_to_progress = False
     
-    # Create tabs with manual selection
+    # Create tabs with manual selection - now with 3 tabs
     tab_names = ["הערכה חדשה", "להסתכל על ההתקדמות שלי", "איך ניתן להתקדם אל המטרה"]
     
     # Create tab selection buttons
     col1, col2, col3 = st.columns(3)
-    
     with col1:
-        if st.button(tab_names[0], 
+        if st.button("הערכה חדשה", 
                     type="primary" if st.session_state.active_tab == 0 else "secondary",
                     use_container_width=True,
                     key="tab_assessment"):
             st.session_state.active_tab = 0
     
     with col2:
-        if st.button(tab_names[1], 
+        if st.button("להסתכל על ההתקדמות שלי", 
                     type="primary" if st.session_state.active_tab == 1 else "secondary",
                     use_container_width=True,
                     key="tab_progress"):
             st.session_state.active_tab = 1
-            
+    
     with col3:
-        if st.button(tab_names[2],
+        if st.button("איך ניתן להתקדם אל המטרה", 
                     type="primary" if st.session_state.active_tab == 2 else "secondary",
                     use_container_width=True,
                     key="tab_guidance"):
@@ -304,6 +364,7 @@ def main():
     
     # Display content based on active tab
     if st.session_state.active_tab == 0:
+        # Tab 1: New Assessment
         if not st.session_state.show_results:
             st.markdown("<div style='text-align: center; margin-bottom: 2rem;'><p style='font-size: 1.1rem; color: #2D3748;'>תן לכל מקצוע ציון מ-1 (בכלל לא בטוח) עד 10 (מאוד בטוח) - לפי איך שאתה מרגיש ממש עכשיו.</p></div>", unsafe_allow_html=True)
             
@@ -393,7 +454,8 @@ def main():
                     st.session_state.active_tab = 1  # Switch to progress tab
                     st.rerun()
     
-    elif st.session_state.active_tab == 1: # Progress tab
+    elif st.session_state.active_tab == 1:
+        # Tab 2: Progress Tracking
         st.markdown("<h3 style='text-align: center;'>הזן את הציונים שלך</h3>", unsafe_allow_html=True)
         st.markdown("<p style='text-align: center; color: #666; margin-bottom: 2rem;'>הזן ציונים מ-0 עד 100 עבור כל הערכה. הציונים יישמרו אוטומטית.</p>", unsafe_allow_html=True)
         
@@ -467,28 +529,62 @@ def main():
                 st.dataframe(table_data, use_container_width=True, hide_index=True)
         else:
             st.info("הזן ציונים כדי לראות את הגרף והסטטיסטיקות!")
-            
-    else: # active_tab == 2 (New tab)
-        st.markdown("<h2 style='text-align: center;'>איך ניתן להתקדם אל המטרה</h2>", unsafe_allow_html=True)
-        st.markdown("---")
+    
+    else:  # active_tab == 2
+        # Tab 3: How to Progress Towards the Goal
+        st.markdown('<h2 style="text-align: center; color: #553c9a; margin-bottom: 2rem;">איך ניתן להתקדם אל המטרה</h2>', unsafe_allow_html=True)
         
+        # Guidance container
+        st.markdown('<div class="guidance-container">', unsafe_allow_html=True)
+        
+        # Section 1: Areas for improvement
         st.markdown("""
-        <div style='text-align: right; direction: rtl; font-size: 1.2rem; line-height: 1.8;'>
-        <p>בתחומים שבהם תרצו <b>לשפר את הציון</b>:</p>
-        <ul>
-            <li>• אתרו את הנושאים שיש צורך להשלים או לחזור עליהם, וצרו רשימה מסודרת.</li>
-            <li>• קבעו פגישה פרטנית עם המורה.</li>
-            <li>• היעזרו ב-AI לתרגול וחיזוק.</li>
-        </ul>
-        <p>בתחומים שבהם תרצו <b>לשמר את הציון</b>:</p>
-        <ul>
-            <li>• קבעו חזרות קבועות על החומר.</li>
-        </ul>
-        <p>זכרו גם <b>לנוח</b> ולעשות דברים שמחזירים לכם אנרגיה!</p>
-        <p>לאחר שזיהיתם מה צריך לעשות – קבעו <b>יעדים יומיים ושבועיים</b>.</p>
-        <p style='text-align: center; font-weight: bold; font-size: 1.5rem; margin-top: 2rem;'>סומך עליכם! דניאל</p>
+        <div class="guidance-section">
+            <div class="guidance-title">🎯 בתחומים שבהם תרצו לשפר את הציון:</div>
+            <ul class="guidance-list">
+                <li>אתרו את הנושאים שיש צורך להשלים או לחזור עליהם, וצרו רשימה מסודרת</li>
+                <li>קבעו פגישה פרטנית עם המורה</li>
+                <li>היעזרו ב-AI לתרגול וחיזוק</li>
+            </ul>
         </div>
         """, unsafe_allow_html=True)
+        
+        # Section 2: Areas to maintain
+        st.markdown("""
+        <div class="guidance-section">
+            <div class="guidance-title">✨ בתחומים שבהם תרצו לשמר את הציון:</div>
+            <ul class="guidance-list">
+                <li>קבעו חזרות קבועות על החומר</li>
+            </ul>
+        </div>
+        """, unsafe_allow_html=True)
+        
+        # Reminder about rest
+        st.markdown("""
+        <div class="reminder-box">
+            💫 זכרו גם לנוח ולעשות דברים שמחזירים לכם אנרגיה!
+        </div>
+        """, unsafe_allow_html=True)
+        
+        # Action steps
+        st.markdown("""
+        <div class="guidance-section" style="background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%); border-right-color: #f59e0b;">
+            <div class="guidance-title" style="color: #92400e;">📋 לאחר שזיהיתם מה צריך לעשות:</div>
+            <p style="font-size: 1.2rem; margin-right: 1.5rem; color: #451a03; font-weight: 500;">
+                קבעו יעדים יומיים ושבועיים
+            </p>
+        </div>
+        """, unsafe_allow_html=True)
+        
+        # Signature
+        st.markdown("""
+        <div class="signature-box">
+            סומך עליכם! 💪<br>
+            דניאל
+        </div>
+        """, unsafe_allow_html=True)
+        
+        st.markdown('</div>', unsafe_allow_html=True)
 
 if __name__ == "__main__":
     main()
